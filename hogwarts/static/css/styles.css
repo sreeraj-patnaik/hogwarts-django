@@ -84,3 +84,56 @@
     background-color: rgba(255, 255, 255, 0.1); /* subtle highlight */
     border-radius: 5px; /* rounded effect on hover */
 }
+
+
+
+.text-marquee {
+  width: 100%;
+  overflow: hidden;
+  background: linear-gradient(90deg, #7c278d, #0f2a8c); /* gradient background */
+  padding: 10px 0;
+  height: 35px;
+}
+
+.text-marquee p {
+  display: inline-block;
+  white-space: nowrap;
+  color: white;
+  font-weight: bold;
+  font-size: 1rem;
+  padding-left: 100%; /* start off-screen */
+  animation: marquee 15s linear infinite;
+}
+
+/* Keyframes for scrolling left to right */
+@keyframes marquee {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+/* Optional: responsive font size */
+@media (max-width: 768px) {
+  .text-marquee p {
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .text-marquee p {
+    font-size: 0.8rem;
+  }
+}
+/* Remove default button background */
+.second-navbar .navbar-toggler {
+    background-color: transparent;  /* no white box */
+    border: none;                   /* remove border if any */
+}
+
+/* Make the hamburger icon visible */
+.second-navbar .navbar-toggler-icon {
+    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba%28255, 255, 255, 1%29' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/ %3E%3C/svg%3E");
+}
