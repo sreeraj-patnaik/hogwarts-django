@@ -1,7 +1,7 @@
 from django.shortcuts import render, HttpResponse, redirect
 
 def home(request):
-    return render(request, 'index.html')
+    return render(request, 'hemmo.html')
 
 
 # Create your views here.

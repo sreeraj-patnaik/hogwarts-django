@@ -1,0 +1,86 @@
+/* Custom CSS */
+.navbar {
+    background: linear-gradient(90deg, #1640f7, #0f2a8c); 
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: white;
+  height: 30px;
+}
+
+
+/* Make all links inside navbar white */
+.navbar .nav-link,
+.navbar .navbar-brand {
+  color: white !important;
+  font-size: 15px;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+/* Optional: change link hover color */
+.navbar .nav-link:hover {
+  color: #ffdd00 !important; /* example hover color */
+  
+}
+
+/* Container for the logo bar */
+.logo-bar {
+    padding: 10px 0; /* vertical spacing */
+}
+
+/* Flex container for logos */
+.logo-bar .d-flex {
+    flex-wrap: wrap; /* wrap to new line if screen is small */
+    justify-content: center; /* center horizontally */
+    align-items: center;
+    gap: 10px; /* space between logos */
+}
+
+/* Individual logos */
+.logo-bar img {
+    height: 70px; /* uniform height */
+    object-fit: contain; /* scale nicely */
+    transition: transform 0.3s, box-shadow 0.3s;
+    cursor: pointer;
+    border-radius: 5px; /* optional rounded corners */
+}
+
+/* Hover effect on logos */
+.logo-bar img:hover {
+    transform: scale(1.1); /* slight zoom */
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2); /* subtle shadow */
+}
+
+/* Responsive: smaller logos on small screens */
+@media (max-width: 768px) {
+    .logo-bar img {
+        height: 45px;
+    }
+}
+@media (max-width: 480px) {
+    .logo-bar img {
+        height: 35px;
+    }
+}
+
+
+
+/* Second navbar styling */
+.second-navbar {
+    background-color: #0f2a8c; /* darker blue than top navbar */
+    border-top: 3px solid #ffdd00; /* optional accent line */
+    height: 40px;
+}
+
+.second-navbar .nav-link {
+    color: #ffffff; /* white links */
+    font-weight: 600;
+    padding: 10px 20px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.second-navbar .nav-link:hover {
+    color: #ffdd00; /* hover color different from top navbar */
+    background-color: rgba(255, 255, 255, 0.1); /* subtle highlight */
+    border-radius: 5px; /* rounded effect on hover */
+}
