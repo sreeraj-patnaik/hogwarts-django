@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Faculty Directory{% endblock %}
+{% block breadcrumb_current %}Faculty{% endblock %}
+
+{% block content %}
+<div class="container-fluid py-4">
+    <h2 class="mb-4 text-primary-blue">Faculty Directory</h2>
+    <p class="mb-4">Browse our faculty members by role and department, ordered by experience.</p>
+
+    {% regroup faculty by role as faculty_by_role %}
+    
+    {% for role_group in faculty_by_role %}
+        <div class="content-box mb-5">
+            <h3 class="text-bright-red mb-3">{{ role_group.grouper }}</h3>
+            
+            <div class="row g-4">
+                {% for f in role_group.list|dictsortreversed:"experience_years" %}
+                    <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+                        <div class="faculty-profile p-3 h-100 d-flex flex-column justify-content-between">
+                            {% if f.photo %}
+                                <img src="{{ f.photo.url }}" alt="{{ f.name }}" class="mb-3 w-100">
+                            {% else %}
+                                <img src="{% static 'images/default_faculty.png' %}" alt="No Photo" class="mb-3 w-100">
+                            {% endif %}
+                            
+                            <div class="faculty-info">
+                                <h4 class="text-primary-blue">{{ f.name }}</h4>
+                                 {% if f.other_roles %}
+                                    <p class="mb-1"><strong></strong> 
+                                        <span style = "size:15px;">
+                                            
+                                           
+                                        <strong>{{ f.other_roles }}</strong>  </p>
+                                        </span>
+                                {% endif %}
+                                <p class="mb-1">Department:   {{ f.department.name }}</p>
+                                <p class="mb-1">Experience:   {{ f.experience_years }} years</p>
+                               
+                            </div>
+                            
+                            <button class="btn btn-custom w-100 mt-3">View Profile</button>
+                        </div>
+                    </div>
+                {% empty %}
+                    <div class="col-12">
+                        <p>No faculty found under {{ role_group.grouper }}.</p>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    {% endfor %}
+</div>
+{% endblock %}

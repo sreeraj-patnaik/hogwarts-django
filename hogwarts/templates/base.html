@@ -1,722 +1,334 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}Hogwarts University - Official Portal{% endblock %}</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{% block title %}Hogwarts University{% endblock %}</title>
 
-        :root {
-            --primary-blue: #1e3a8a;
-            --secondary-blue: #3b82f6;
-            --light-blue: #dbeafe;
-            --dark-gray: #374151;
-            --medium-gray: #6b7280;
-            --light-gray: #f3f4f6;
-            --white: #ffffff;
-            --gold: #d4af37;
-            --dark-red: #7f1d1d;
-        }
+<!-- Bootstrap 5 CSS -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
-        body {
-            font-family: 'Times New Roman', serif;
-            line-height: 1.6;
-            color: var(--dark-gray);
-            background-color: var(--light-gray);
-        }
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
 
-        /* Header Section */
-        .header {
-            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--secondary-blue) 100%);
-            color: var(--white);
-            padding: 1rem 0;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
+<!-- Custom CSS -->
+<link rel="stylesheet" href="{% static 'css/styles.css' %}">
 
-        .header-top {
-            background-color: var(--dark-gray);
-            padding: 0.5rem 0;
-            font-size: 0.875rem;
-        }
+<style>
+:root {
+    --bright-blue: #000dbd;
+    --bright-yellow: #ffe100;
+    --bright-red: #ff0000;
+    --white: #ffffff;
+    --dark-gray: #212529;
+}
 
-        .header-top .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 1rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+/* Body & Fonts */
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--white);
+    color: var(--dark-gray);
+}
 
-        .contact-info {
-            display: flex;
-            gap: 2rem;
-        }
+/* Header Top Bar */
+.header-top {
+    background-color: var(--bright-blue);
+    color: var(--white);
+    padding: 0.5rem 2rem;
+    font-size: 0.9rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.header-top a {
+    color: var(--white);
+    text-decoration: none;
+    transition: color 0.3s;
+}
+.header-top a:hover {
+    color: var(--bright-yellow);
+}
 
-        .contact-info span {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
+/* Main Header */
+.header-main {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 2rem;
+    border-bottom: 4px solid var(--bright-blue);
+    background-color: var(--white);
+}
+.header-main h1 {
+    color: var(--bright-blue);
+    font-weight: 800;
+    font-size: 2.5rem;
+}
+.header-main p {
+    color: var(--dark-gray);
+    font-size: 1.2rem;
+}
 
-        .header-main {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 1rem;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
+/* Logo Box */
+.logo-box {
+    width: 80px;
+    height: 80px;
+    background-color: var(--bright-yellow);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 1.5rem;
+    color: var(--bright-blue);
+    transition: transform 0.3s;
+}
+.logo-box:hover {
+    transform: rotate(15deg);
+}
 
-        .logo-section {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
+/* Navbar */
+.navbar {
+    background-color: var(--bright-blue);
+    font-weight: 700;
+}
+.navbar-nav .nav-link {
+    color: var(--white);
+    transition: all 0.3s ease;
+}
+.navbar-nav .nav-link:hover, .navbar-nav .nav-link.active {
+    color: var(--bright-yellow);
+    background-color: var(--white);
+}
+.dropdown-menu {
+    border: none;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+.dropdown-item:hover {
+    background-color: var(--bright-red);
+    color: var(--white);
+}
 
-        .logo {
-            width: 80px;
-            height: 80px;
-            background: var(--gold);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            font-size: 1.5rem;
-            color: var(--primary-blue);
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-        }
+/* Breadcrumb */
+.breadcrumb {
+    background-color: var(--white);
+    padding: 1rem 2rem;
+    border-bottom: 2px solid var(--bright-blue);
+}
+.breadcrumb-item + .breadcrumb-item::before {
+    content: ">";
+    color: var(--dark-gray);
+}
 
-        .university-info h1 {
-            font-size: 2.5rem;
-            margin-bottom: 0.25rem;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-        }
+/* Main Content */
+.main-container {
+    padding: 2rem;
+}
 
-        .university-info p {
-            font-size: 1.1rem;
-            opacity: 0.9;
-        }
+/* Cards / Boxes */
+.content-box, .faculty-profile {
+    width: 100%;
+    border: 2px solid var(--bright-blue);
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+.content-box:hover, .faculty-profile:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+.faculty-profile {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    border: 2px solid var(--bright-blue);
+    padding: 1.5rem;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
 
-        .header-right {
-            text-align: right;
-        }
+.faculty-profile img {
+    width: 100%;
+    max-height: 200px;
+    object-fit: cover;
+    border: 2px solid var(--bright-yellow);
+    margin-bottom: 1rem;
+}
 
-        .header-badge {
-            background: var(--white);
-            color: var(--primary-blue);
-            padding: 0.75rem 1.5rem;
-            border-radius: 8px;
-            font-weight: bold;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-        }
+.faculty-info {
+    flex-grow: 1; /* Make content take remaining space */
+}
 
-        /* Navigation */
-        .navbar {
-            background-color: var(--white);
-            border-bottom: 3px solid var(--gold);
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-        }
+.btn-custom {
+    margin-top: auto; /* Push button to bottom */
+}
 
-        .nav-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0 1rem;
-        }
+/* Buttons */
+.btn-custom {
+    background-color: var(--bright-yellow);
+    color: var(--bright-blue);
+    font-weight: 700;
+    transition: all 0.3s;
+}
+.btn-custom:hover {
+    background-color: var(--bright-red);
+    color: var(--white);
+}
 
-        .nav-menu {
-            display: flex;
-            list-style: none;
-            margin: 0;
-            padding: 0;
-        }
+/* Footer */
+.footer {
+    background-color: var(--bright-blue);
+    color: var(--white);
+    padding: 3rem 2rem;
+}
+.footer h3 {
+    color: var(--bright-yellow);
+}
+.footer a {
+    color: var(--white);
+    text-decoration: none;
+    transition: color 0.3s;
+}
+.footer a:hover {
+    color: var(--bright-yellow);
+}
 
-        .nav-item {
-            position: relative;
-        }
+/* Animations */
+.fade-in {
+    animation: fadeIn 1s ease forwards;
+}
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
 
-        .nav-link {
-            display: block;
-            padding: 1rem 1.5rem;
-            text-decoration: none;
-            color: var(--dark-gray);
-            font-weight: 600;
-            transition: all 0.3s ease;
-            border-bottom: 3px solid transparent;
-        }
-
-        .nav-link:hover,
-        .nav-link.active {
-            background-color: var(--light-blue);
-            color: var(--primary-blue);
-            border-bottom-color: var(--gold);
-        }
-
-        /* Dropdown */
-        .dropdown {
-            position: absolute;
-            top: 100%;
-            left: 0;
-            background: var(--white);
-            min-width: 200px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            border: 1px solid #e5e5e5;
-            opacity: 0;
-            visibility: hidden;
-            transform: translateY(-10px);
-            transition: all 0.3s ease;
-        }
-
-        .nav-item:hover .dropdown {
-            opacity: 1;
-            visibility: visible;
-            transform: translateY(0);
-        }
-
-        .dropdown-link {
-            display: block;
-            padding: 0.75rem 1rem;
-            text-decoration: none;
-            color: var(--dark-gray);
-            border-bottom: 1px solid #f0f0f0;
-            transition: background-color 0.3s ease;
-        }
-
-        .dropdown-link:hover {
-            background-color: var(--light-gray);
-            color: var(--primary-blue);
-        }
-
-        /* Mobile Menu */
-        .mobile-menu-toggle {
-            display: none;
-            background: none;
-            border: none;
-            font-size: 1.5rem;
-            color: var(--dark-gray);
-            cursor: pointer;
-        }
-
-        /* Breadcrumb */
-        .breadcrumb {
-            background-color: var(--white);
-            padding: 1rem 0;
-            border-bottom: 1px solid #e5e5e5;
-        }
-
-        .breadcrumb-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 1rem;
-        }
-
-        .breadcrumb-list {
-            display: flex;
-            list-style: none;
-            gap: 0.5rem;
-            align-items: center;
-        }
-
-        .breadcrumb-item {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .breadcrumb-link {
-            color: var(--secondary-blue);
-            text-decoration: none;
-        }
-
-        .breadcrumb-link:hover {
-            text-decoration: underline;
-        }
-
-        .breadcrumb-separator {
-            color: var(--medium-gray);
-        }
-
-        /* Main Content */
-        .main-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 2rem 1rem;
-            min-height: calc(100vh - 400px);
-        }
-
-        .content-box {
-            background: var(--white);
-            border: 2px solid #e5e5e5;
-            border-radius: 8px;
-            padding: 2rem;
-            margin-bottom: 2rem;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-        }
-
-        /* Tables */
-        .data-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 1rem 0;
-            background: var(--white);
-            border: 2px solid #e5e5e5;
-        }
-
-        .data-table th,
-        .data-table td {
-            padding: 0.75rem;
-            text-align: left;
-            border: 1px solid #e5e5e5;
-        }
-
-        .data-table th {
-            background-color: var(--primary-blue);
-            color: var(--white);
-            font-weight: bold;
-        }
-
-        .data-table tr:nth-child(even) {
-            background-color: var(--light-gray);
-        }
-
-        .data-table tr:hover {
-            background-color: var(--light-blue);
-        }
-
-        /* Buttons */
-        .btn {
-            display: inline-block;
-            padding: 0.75rem 1.5rem;
-            background-color: var(--primary-blue);
-            color: var(--white);
-            text-decoration: none;
-            border: none;
-            border-radius: 4px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            margin: 0.25rem;
-        }
-
-        .btn:hover {
-            background-color: var(--secondary-blue);
-            transform: translateY(-2px);
-            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-        }
-
-        .btn-secondary {
-            background-color: var(--medium-gray);
-        }
-
-        .btn-success {
-            background-color: #059669;
-        }
-
-        .btn-warning {
-            background-color: #d97706;
-        }
-
-        .btn-danger {
-            background-color: var(--dark-red);
-        }
-
-        /* Footer */
-        .footer {
-            background: linear-gradient(135deg, var(--dark-gray) 0%, var(--primary-blue) 100%);
-            color: var(--white);
-            padding: 3rem 0 1rem;
-            margin-top: 3rem;
-        }
-
-        .footer-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 1rem;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-        }
-
-        .footer-section h3 {
-            margin-bottom: 1rem;
-            color: var(--gold);
-            font-size: 1.2rem;
-        }
-
-        .footer-section ul {
-            list-style: none;
-        }
-
-        .footer-section ul li {
-            margin-bottom: 0.5rem;
-        }
-
-        .footer-section ul li a {
-            color: var(--white);
-            text-decoration: none;
-            transition: color 0.3s ease;
-        }
-
-        .footer-section ul li a:hover {
-            color: var(--gold);
-        }
-
-        .footer-bottom {
-            border-top: 1px solid rgba(255,255,255,0.2);
-            margin-top: 2rem;
-            padding-top: 1rem;
-            text-align: center;
-            color: rgba(255,255,255,0.8);
-        }
-
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .header-main {
-                flex-direction: column;
-                text-align: center;
-                gap: 1rem;
-            }
-
-            .university-info h1 {
-                font-size: 2rem;
-            }
-
-            .nav-menu {
-                display: none;
-                flex-direction: column;
-                position: absolute;
-                top: 100%;
-                left: 0;
-                width: 100%;
-                background: var(--white);
-                box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            }
-
-            .nav-menu.active {
-                display: flex;
-            }
-
-            .mobile-menu-toggle {
-                display: block;
-            }
-
-            .content-box {
-                padding: 1rem;
-            }
-
-            .data-table {
-                font-size: 0.875rem;
-            }
-
-            .footer-content {
-                grid-template-columns: 1fr;
-                text-align: center;
-            }
-
-            .contact-info {
-                flex-direction: column;
-                gap: 0.5rem;
-            }
-        }
-
-        /* Utility Classes */
-        .text-center { text-align: center; }
-        .text-right { text-align: right; }
-        .mb-1 { margin-bottom: 0.5rem; }
-        .mb-2 { margin-bottom: 1rem; }
-        .mb-3 { margin-bottom: 2rem; }
-        .mt-1 { margin-top: 0.5rem; }
-        .mt-2 { margin-top: 1rem; }
-        .mt-3 { margin-top: 2rem; }
-        .p-1 { padding: 0.5rem; }
-        .p-2 { padding: 1rem; }
-        .p-3 { padding: 2rem; }
-    </style>
+/* Responsive */
+@media (max-width: 768px) {
+    .header-main {
+        flex-direction: column;
+        gap: 1rem;
+    }
+    .breadcrumb {
+        padding: 1rem;
+    }
+}
+</style>
 </head>
 <body>
-    <!-- Header Top Bar -->
-    <div class="header-top">
-        <div class="container">
-            <div class="contact-info">
-                <span>Phone: +44 1234 567890</span>
-                <span>Email: info@hogwarts.edu</span>
-                <span>Emergency: +44 999 123456</span>
-            </div>
-            <div>
-                <span>{% now "l, F j, Y" %}</span>
-            </div>
+
+<!-- Header Top -->
+<div class="header-top">
+    <div>
+        <span>Phone: +44 1234 567890</span> |
+        <span>Email: info@hogwarts.edu</span> |
+        <span>Emergency: +44 999 123456</span>
+    </div>
+    <div>{% now "l, F j, Y" %}</div>
+</div>
+
+<!-- Main Header -->
+<header class="header-main container-fluid">
+    <div class="d-flex align-items-center gap-3">
+        <div class="logo-box">HU</div>
+        <div>
+            <h1>Hogwarts University</h1>
+            <p>Ministry of Magic Affiliated Institution</p>
         </div>
     </div>
+    <div class="text-end">
+        <span class="fw-bold">Established 990 AD</span><br>
+        <small>Excellence in Magical Education</small>
+    </div>
+</header>
 
-    <!-- Main Header -->
-    <header class="header">
-        <div class="header-main">
-            <div class="logo-section">
-                <div class="logo">
-                    <img src="https://placehold.co/80x80" alt="Hogwarts University coat of arms featuring a shield with four house symbols and a banner with school motto" />
-                </div>
-                <div class="university-info">
-                    <h1>Hogwarts University</h1>
-                    <p>Ministry of Magic Affiliated Institution</p>
-                </div>
-            </div>
-            <div class="header-right">
-                <div class="header-badge">
-                    Established 990 AD<br>
-                    <small>Excellence in Magical Education</small>
-                </div>
-            </div>
-        </div>
-    </header>
-
-    <!-- Navigation -->
-    <nav class="navbar">
-        <div class="nav-container">
-            <ul class="nav-menu" id="navMenu">
-                <li class="nav-item">
-                    <a href="/" class="nav-link active">Home</a>
+<!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand d-lg-none" href="#">HU</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav w-100 justify-content-start">
+                <li class="nav-item"><a class="nav-link active" href="/">Home</a></li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Academics</a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="#">Undergraduate Programs</a></li>
+                        <li><a class="dropdown-item" href="#">Graduate Programs</a></li>
+                        <li><a class="dropdown-item" href="#">Research</a></li>
+                        <li><a class="dropdown-item" href="#">Course Catalog</a></li>
+                    </ul>
                 </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link">Academics</a>
-                    <div class="dropdown">
-                        <a href="#" class="dropdown-link">Undergraduate Programs</a>
-                        <a href="#" class="dropdown-link">Graduate Programs</a>
-                        <a href="#" class="dropdown-link">Research</a>
-                        <a href="#" class="dropdown-link">Course Catalog</a>
-                    </div>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Admissions</a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="#">Apply Online</a></li>
+                        <li><a class="dropdown-item" href="#">Requirements</a></li>
+                        <li><a class="dropdown-item" href="#">Tuition & Fees</a></li>
+                        <li><a class="dropdown-item" href="#">Financial Aid</a></li>
+                    </ul>
                 </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link">Admissions</a>
-                    <div class="dropdown">
-                        <a href="#" class="dropdown-link">Apply Online</a>
-                        <a href="#" class="dropdown-link">Requirements</a>
-                        <a href="#" class="dropdown-link">Tuition & Fees</a>
-                        <a href="#" class="dropdown-link">Financial Aid</a>
-                    </div>
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link">Student Services</a>
-                    <div class="dropdown">
-                        <a href="#" class="dropdown-link">Student Portal</a>
-                        <a href="#" class="dropdown-link">Housing</a>
-                        <a href="#" class="dropdown-link">Dining</a>
-                        <a href="#" class="dropdown-link">Health Services</a>
-                    </div>
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link">Faculty & Staff</a>
-                    <div class="dropdown">
-                        <a href="#" class="dropdown-link">Directory</a>
-                        <a href="#" class="dropdown-link">Employment</a>
-                        <a href="#" class="dropdown-link">Staff Portal</a>
-                    </div>
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link">About</a>
-                    <div class="dropdown">
-                        <a href="#" class="dropdown-link">History</a>
-                        <a href="#" class="dropdown-link">Leadership</a>
-                        <a href="#" class="dropdown-link">Campus Map</a>
-                        <a href="#" class="dropdown-link">Contact Us</a>
-                    </div>
-                </li>
-            </ul>
-            <button class="mobile-menu-toggle" id="mobileToggle">☰</button>
-        </div>
-    </nav>
-
-    <!-- Breadcrumb -->
-    {% block breadcrumb %}
-    <div class="breadcrumb">
-        <div class="breadcrumb-container">
-            <ul class="breadcrumb-list">
-                <li class="breadcrumb-item">
-                    <a href="/" class="breadcrumb-link">Home</a>
-                </li>
-                <li class="breadcrumb-item">
-                    <span class="breadcrumb-separator">></span>
-                    <span>{% block breadcrumb_current %}Current Page{% endblock %}</span>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Student Services</a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="#">Portal</a></li>
+                        <li><a class="dropdown-item" href="#">Housing</a></li>
+                        <li><a class="dropdown-item" href="#">Dining</a></li>
+                        <li><a class="dropdown-item" href="#">Health Services</a></li>
+                    </ul>
                 </li>
             </ul>
         </div>
+    </div>
+</nav>
+
+<!-- Breadcrumb -->
+{% block breadcrumb %}
+<div class="container-fluid breadcrumb fade-in">
+    <ol class="breadcrumb mb-0">
+        <li class="breadcrumb-item"><a href="/">Home</a></li>
+        <li class="breadcrumb-item active" aria-current="page">{% block breadcrumb_current %}Current Page{% endblock %}</li>
+    </ol>
+</div>
+{% endblock %}
+
+<!-- Main Content -->
+<main class="main-container container-fluid">
+    {% block content %}
+    <div class="content-box fade-in">
+        <h2>Welcome to Hogwarts University Official Portal</h2>
+        <p>This is the official portal for Hogwarts University, providing access to academic services, administrative functions, and institutional information.</p>
     </div>
     {% endblock %}
+</main>
 
-    <!-- Main Content -->
-    <main class="main-container">
-        {% block content %}
-        <div class="content-box">
-            <h2>Welcome to Hogwarts University Official Portal</h2>
-            <p>This is the official government portal for Hogwarts University, providing access to academic services, administrative functions, and institutional information.</p>
-        </div>
-        {% endblock %}
-    </main>
-
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="footer-content">
-            <div class="footer-section">
+<!-- Footer -->
+<footer class="footer">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-4 mb-3">
+                <h3>About HU</h3>
+                <p>Excellence in Magical Education since 990 AD.</p>
+            </div>
+            <div class="col-lg-4 mb-3">
                 <h3>Quick Links</h3>
-                <ul>
-                    <li><a href="#">Academic Calendar</a></li>
-                    <li><a href="#">Library</a></li>
-                    <li><a href="#">Student Handbook</a></li>
-                    <li><a href="#">Campus Safety</a></li>
-                    <li><a href="#">IT Support</a></li>
+                <ul class="list-unstyled">
+                    <li><a href="#">Admissions</a></li>
+                    <li><a href="#">Academics</a></li>
+                    <li><a href="#">Research</a></li>
                 </ul>
             </div>
-            <div class="footer-section">
-                <h3>Departments</h3>
-                <ul>
-                    <li><a href="#">Gryffindor House</a></li>
-                    <li><a href="#">Hufflepuff House</a></li>
-                    <li><a href="#">Ravenclaw House</a></li>
-                    <li><a href="#">Slytherin House</a></li>
-                    <li><a href="#">Graduate School</a></li>
-                </ul>
-            </div>
-            <div class="footer-section">
-                <h3>Resources</h3>
-                <ul>
-                    <li><a href="#">Online Learning</a></li>
-                    <li><a href="#">Research Portal</a></li>
-                    <li><a href="#">Alumni Network</a></li>
-                    <li><a href="#">Career Services</a></li>
-                    <li><a href="#">International Programs</a></li>
-                </ul>
-            </div>
-            <div class="footer-section">
-                <h3>Contact Information</h3>
-                <ul>
-                    <li>Hogwarts Castle</li>
-                    <li>Scottish Highlands</li>
-                    <li>United Kingdom</li>
-                    <li>Phone: +44 1234 567890</li>
-                    <li>Email: info@hogwarts.edu</li>
-                </ul>
+            <div class="col-lg-4 mb-3">
+                <h3>Contact</h3>
+                <p>Email: info@hogwarts.edu</p>
+                <p>Phone: +44 1234 567890</p>
             </div>
         </div>
-        <div class="footer-bottom">
-            <p>&copy; {% now "Y" %} Hogwarts University. All Rights Reserved. | <a href="#" style="color: #d4af37;">Privacy Policy</a> | <a href="#" style="color: #d4af37;">Terms of Service</a> | <a href="#" style="color: #d4af37;">Accessibility</a></p>
-        </div>
-    </footer>
+        <div class="text-center mt-3">&copy; {% now "Y" %} Hogwarts University. All Rights Reserved.</div>
+    </div>
+</footer>
 
-    <script>
-        // Mobile menu toggle
-        document.getElementById('mobileToggle').addEventListener('click', function() {
-            const navMenu = document.getElementById('navMenu');
-            navMenu.classList.toggle('active');
-        });
-
-        // Close mobile menu when clicking outside
-        document.addEventListener('click', function(event) {
-            const navMenu = document.getElementById('navMenu');
-            const mobileToggle = document.getElementById('mobileToggle');
-            
-            if (!navMenu.contains(event.target) && !mobileToggle.contains(event.target)) {
-                navMenu.classList.remove('active');
-            }
-        });
-
-        // Add active class to current page navigation
-        document.addEventListener('DOMContentLoaded', function() {
-            const currentLocation = location.pathname;
-            const navLinks = document.querySelectorAll('.nav-link');
-            
-            navLinks.forEach(link => {
-                if (link.getAttribute('href') === currentLocation) {
-                    navLinks.forEach(l => l.classList.remove('active'));
-                    link.classList.add('active');
-                }
-            });
-        });
-
-        // Smooth scrolling for anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
-            });
-        });
-
-        // Table row highlighting
-        document.querySelectorAll('.data-table tr').forEach(row => {
-            row.addEventListener('mouseenter', function() {
-                this.style.backgroundColor = '#dbeafe';
-            });
-            
-            row.addEventListener('mouseleave', function() {
-                if (!this.classList.contains('selected')) {
-                    this.style.backgroundColor = '';
-                }
-            });
-        });
-
-        // Form validation helper
-        function validateForm(formId) {
-            const form = document.getElementById(formId);
-            const inputs = form.querySelectorAll('input[required], select[required], textarea[required]');
-            let isValid = true;
-
-            inputs.forEach(input => {
-                if (!input.value.trim()) {
-                    input.style.borderColor = '#ef4444';
-                    isValid = false;
-                } else {
-                    input.style.borderColor = '#d1d5db';
-                }
-            });
-
-            return isValid;
-        }
-
-        // Print functionality
-        function printPage() {
-            window.print();
-        }
-
-        // Export table to CSV
-        function exportTableToCSV(tableId, filename) {
-            const table = document.getElementById(tableId);
-            const rows = table.querySelectorAll('tr');
-            let csv = [];
-
-            rows.forEach(row => {
-                const cols = row.querySelectorAll('td, th');
-                const rowData = Array.from(cols).map(col => col.textContent.trim());
-                csv.push(rowData.join(','));
-            });
-
-            const csvContent = csv.join('\n');
-            const blob = new Blob([csvContent], { type: 'text/csv' });
-            const url = window.URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = filename || 'table-data.csv';
-            a.click();
-            window.URL.revokeObjectURL(url);
-        }
-    </script>
-
-    {% block extra_js %}{% endblock %}
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
-

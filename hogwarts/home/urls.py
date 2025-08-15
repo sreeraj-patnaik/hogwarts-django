@@ -22,5 +22,5 @@ from django.urls import path
 
 urlpatterns = [
  path("", views.home, name='home'),
- 
+path('faculty/<str:dept_name>/', views.faculty_list, name='faculty_by_name')
 ]
