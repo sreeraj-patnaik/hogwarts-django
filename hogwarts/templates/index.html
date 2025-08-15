@@ -1,11 +1,74 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    
-</body>
-</html>
+{% extends "base.html" %}
+
+{% block title %}Hogwarts University - Home{% endblock %}
+
+{% block breadcrumb_current %}Home{% endblock %}
+
+{% block content %}
+<div class="content-box">
+    <h2 class="mb-2">Welcome to Hogwarts University</h2>
+    <p class="mb-3">
+        Founded in 990 AD, Hogwarts University is the premier Ministry of Magic–affiliated institution for advanced magical learning.
+        Our campus in the Scottish Highlands has been home to generations of witches and wizards seeking to master their craft.
+    </p>
+
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin-top: 2rem;">
+        
+        <!-- Card 1 -->
+        <div class="content-box" style="border: 1px solid #e5e5e5; text-align: center;">
+            <img src="https://placehold.co/400x200" alt="Castle view" style="width: 100%; border-radius: 8px;">
+            <h3 class="mt-2">Academic Excellence</h3>
+            <p>Explore undergraduate, graduate, and research programs led by world-class magical scholars.</p>
+            <a href="#" class="btn mt-1">Explore Academics</a>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="content-box" style="border: 1px solid #e5e5e5; text-align: center;">
+            <img src="https://placehold.co/400x200" alt="Admissions Hall" style="width: 100%; border-radius: 8px;">
+            <h3 class="mt-2">Admissions Open</h3>
+            <p>Applications for the upcoming academic year are now being accepted for all magical disciplines.</p>
+            <a href="#" class="btn mt-1">Apply Now</a>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="content-box" style="border: 1px solid #e5e5e5; text-align: center;">
+            <img src="https://placehold.co/400x200" alt="Student life" style="width: 100%; border-radius: 8px;">
+            <h3 class="mt-2">Student Life</h3>
+            <p>Join a vibrant magical community with events, clubs, and activities for every witch and wizard.</p>
+            <a href="#" class="btn mt-1">Discover Life Here</a>
+        </div>
+    </div>
+</div>
+
+<!-- News Section -->
+<div class="content-box">
+    <h2 class="mb-2">Latest News</h2>
+    <table class="data-table" id="newsTable">
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Headline</th>
+                <th>Category</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>August 12, 2025</td>
+                <td>Hogwarts Introduces Advanced Spellcasting Program</td>
+                <td>Academics</td>
+            </tr>
+            <tr>
+                <td>July 30, 2025</td>
+                <td>Triwizard Tournament Returns This Winter</td>
+                <td>Events</td>
+            </tr>
+            <tr>
+                <td>June 15, 2025</td>
+                <td>Library Expands Rare Magical Manuscripts Collection</td>
+                <td>Library</td>
+            </tr>
+        </tbody>
+    </table>
+    <button class="btn" onclick="exportTableToCSV('newsTable', 'hogwarts-news.csv')">Export News</button>
+</div>
+{% endblock %}
