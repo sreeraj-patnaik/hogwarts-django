@@ -2,333 +2,233 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>{% block title %}Hogwarts University{% endblock %}</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Hogwarts University of Witchcraft and Wizardry{% endblock %}</title>
+   
 
-<!-- Bootstrap 5 CSS -->
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
 
-<!-- Google Fonts -->
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
-
-<!-- Custom CSS -->
-<link rel="stylesheet" href="{% static 'css/styles.css' %}">
-
-<style>
-:root {
-    --bright-blue: #000dbd;
-    --bright-yellow: #ffe100;
-    --bright-red: #ff0000;
-    --white: #ffffff;
-    --dark-gray: #212529;
-}
-
-/* Body & Fonts */
-body {
-    font-family: 'Poppins', sans-serif;
-    background-color: var(--white);
-    color: var(--dark-gray);
-}
-
-/* Header Top Bar */
-.header-top {
-    background-color: var(--bright-blue);
-    color: var(--white);
-    padding: 0.5rem 2rem;
-    font-size: 0.9rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-.header-top a {
-    color: var(--white);
-    text-decoration: none;
-    transition: color 0.3s;
-}
-.header-top a:hover {
-    color: var(--bright-yellow);
-}
-
-/* Main Header */
-.header-main {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1.5rem 2rem;
-    border-bottom: 4px solid var(--bright-blue);
-    background-color: var(--white);
-}
-.header-main h1 {
-    color: var(--bright-blue);
-    font-weight: 800;
-    font-size: 2.5rem;
-}
-.header-main p {
-    color: var(--dark-gray);
-    font-size: 1.2rem;
-}
-
-/* Logo Box */
-.logo-box {
-    width: 80px;
-    height: 80px;
-    background-color: var(--bright-yellow);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: 800;
-    font-size: 1.5rem;
-    color: var(--bright-blue);
-    transition: transform 0.3s;
-}
-.logo-box:hover {
-    transform: rotate(15deg);
-}
-
-/* Navbar */
-.navbar {
-    background-color: var(--bright-blue);
-    font-weight: 700;
-}
-.navbar-nav .nav-link {
-    color: var(--white);
-    transition: all 0.3s ease;
-}
-.navbar-nav .nav-link:hover, .navbar-nav .nav-link.active {
-    color: var(--bright-yellow);
-    background-color: var(--white);
-}
-.dropdown-menu {
-    border: none;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-}
-.dropdown-item:hover {
-    background-color: var(--bright-red);
-    color: var(--white);
-}
-
-/* Breadcrumb */
-.breadcrumb {
-    background-color: var(--white);
-    padding: 1rem 2rem;
-    border-bottom: 2px solid var(--bright-blue);
-}
-.breadcrumb-item + .breadcrumb-item::before {
-    content: ">";
-    color: var(--dark-gray);
-}
-
-/* Main Content */
-.main-container {
-    padding: 2rem;
-}
-
-/* Cards / Boxes */
-.content-box, .faculty-profile {
-    width: 100%;
-    border: 2px solid var(--bright-blue);
-    padding: 1.5rem;
-    margin-bottom: 2rem;
-    transition: transform 0.3s, box-shadow 0.3s;
-}
-.content-box:hover, .faculty-profile:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
-}
-.faculty-profile {
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-    border: 2px solid var(--bright-blue);
-    padding: 1.5rem;
-    transition: transform 0.3s, box-shadow 0.3s;
-}
-
-.faculty-profile img {
-    width: 100%;
-    max-height: 200px;
-    object-fit: cover;
-    border: 2px solid var(--bright-yellow);
-    margin-bottom: 1rem;
-}
-
-.faculty-info {
-    flex-grow: 1; /* Make content take remaining space */
-}
-
-.btn-custom {
-    margin-top: auto; /* Push button to bottom */
-}
-
-/* Buttons */
-.btn-custom {
-    background-color: var(--bright-yellow);
-    color: var(--bright-blue);
-    font-weight: 700;
-    transition: all 0.3s;
-}
-.btn-custom:hover {
-    background-color: var(--bright-red);
-    color: var(--white);
-}
-
-/* Footer */
-.footer {
-    background-color: var(--bright-blue);
-    color: var(--white);
-    padding: 3rem 2rem;
-}
-.footer h3 {
-    color: var(--bright-yellow);
-}
-.footer a {
-    color: var(--white);
-    text-decoration: none;
-    transition: color 0.3s;
-}
-.footer a:hover {
-    color: var(--bright-yellow);
-}
-
-/* Animations */
-.fade-in {
-    animation: fadeIn 1s ease forwards;
-}
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
-/* Responsive */
-@media (max-width: 768px) {
-    .header-main {
-        flex-direction: column;
-        gap: 1rem;
-    }
-    .breadcrumb {
-        padding: 1rem;
-    }
-}
-</style>
+    {% block extra_css %}{% endblock %}
 </head>
 <body>
-
-<!-- Header Top -->
-<div class="header-top">
-    <div>
-        <span>Phone: +44 1234 567890</span> |
-        <span>Email: info@hogwarts.edu</span> |
-        <span>Emergency: +44 999 123456</span>
-    </div>
-    <div>{% now "l, F j, Y" %}</div>
-</div>
-
-<!-- Main Header -->
-<header class="header-main container-fluid">
-    <div class="d-flex align-items-center gap-3">
-        <div class="logo-box">HU</div>
-        <div>
-            <h1>Hogwarts University</h1>
-            <p>Ministry of Magic Affiliated Institution</p>
-        </div>
-    </div>
-    <div class="text-end">
-        <span class="fw-bold">Established 990 AD</span><br>
-        <small>Excellence in Magical Education</small>
-    </div>
-</header>
-
-<!-- Navigation -->
-<nav class="navbar navbar-expand-lg navbar-dark">
-    <div class="container-fluid">
-        <a class="navbar-brand d-lg-none" href="#">HU</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav w-100 justify-content-start">
-                <li class="nav-item"><a class="nav-link active" href="/">Home</a></li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Academics</a>
-                    <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#">Undergraduate Programs</a></li>
-                        <li><a class="dropdown-item" href="#">Graduate Programs</a></li>
-                        <li><a class="dropdown-item" href="#">Research</a></li>
-                        <li><a class="dropdown-item" href="#">Course Catalog</a></li>
-                    </ul>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Admissions</a>
-                    <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#">Apply Online</a></li>
-                        <li><a class="dropdown-item" href="#">Requirements</a></li>
-                        <li><a class="dropdown-item" href="#">Tuition & Fees</a></li>
-                        <li><a class="dropdown-item" href="#">Financial Aid</a></li>
-                    </ul>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Student Services</a>
-                    <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#">Portal</a></li>
-                        <li><a class="dropdown-item" href="#">Housing</a></li>
-                        <li><a class="dropdown-item" href="#">Dining</a></li>
-                        <li><a class="dropdown-item" href="#">Health Services</a></li>
-                    </ul>
-                </li>
-            </ul>
-        </div>
-    </div>
-</nav>
-
-<!-- Breadcrumb -->
-{% block breadcrumb %}
-<div class="container-fluid breadcrumb fade-in">
-    <ol class="breadcrumb mb-0">
-        <li class="breadcrumb-item"><a href="/">Home</a></li>
-        <li class="breadcrumb-item active" aria-current="page">{% block breadcrumb_current %}Current Page{% endblock %}</li>
-    </ol>
-</div>
-{% endblock %}
-
-<!-- Main Content -->
-<main class="main-container container-fluid">
-    {% block content %}
-    <div class="content-box fade-in">
-        <h2>Welcome to Hogwarts University Official Portal</h2>
-        <p>This is the official portal for Hogwarts University, providing access to academic services, administrative functions, and institutional information.</p>
-    </div>
-    {% endblock %}
-</main>
-
-<!-- Footer -->
-<footer class="footer">
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-lg-4 mb-3">
-                <h3>About HU</h3>
-                <p>Excellence in Magical Education since 990 AD.</p>
-            </div>
-            <div class="col-lg-4 mb-3">
-                <h3>Quick Links</h3>
-                <ul class="list-unstyled">
-                    <li><a href="#">Admissions</a></li>
-                    <li><a href="#">Academics</a></li>
-                    <li><a href="#">Research</a></li>
+    <!-- First Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-first">
+        <div class="container-fluid">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarFirst" aria-controls="navbarFirst" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <div class="collapse navbar-collapse justify-content-center" id="navbarFirst">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#" onclick="setActive(this)">WIZNEGMORT</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" onclick="setActive(this)">MINISTRY</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" onclick="setActive(this)">FOUNDERS</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" onclick="setActive(this)">HOGSMEADE</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" onclick="setActive(this)">FANTASTIC BEASTS</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" onclick="setActive(this)">TEXTBOOKS</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" onclick="setActive(this)">RESEARCH</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" onclick="setActive(this)">QUIDDITCH LEAGUE</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" onclick="setActive(this)">ALUMINI</a>
+                    </li>
                 </ul>
             </div>
-            <div class="col-lg-4 mb-3">
-                <h3>Contact</h3>
-                <p>Email: info@hogwarts.edu</p>
-                <p>Phone: +44 1234 567890</p>
+        </div>
+    </nav>
+
+    <!-- Logo Bar -->
+    <div class="logo-bar">
+        <div class="container-fluid">
+            <div class="logo-container">
+                <div class="logo-item">
+                    <img src="{% static 'images/logo0.png' %}" alt="Hogwarts crest">
+                </div>
+                <div class="logo-item">
+                    <img src="{% static 'images/logo1.png' %}" alt="Gryffindor house logo">
+                </div>
+                <div class="logo-item">
+                    <img src="{% static 'images/logo2.jpg' %}" alt="Ravenclaw house emblem">
+                </div>
+                <div class="logo-item">
+                    <img src="{% static 'images/logo3.png' %}" alt="Slytherin house crest">
+                </div>
+                <div class="logo-item">
+                    <img src="{% static 'images/logo4.png' %}" alt="Hufflepuff house badge">
+                </div>
+                <div class="logo-item">
+                    <img src="{% static 'images/logo5.png' %}" alt="Ministry of Magic seal">
+                </div>
+                <div class="logo-item">
+                    <img src="{% static 'images/logo6.png' %}" alt="Quidditch league emblem">
+                </div>
             </div>
         </div>
-        <div class="text-center mt-3">&copy; {% now "Y" %} Hogwarts University. All Rights Reserved.</div>
     </div>
-</footer>
 
-<!-- Bootstrap JS -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Second Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-second">
+        <div class="container-fluid">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSecond" aria-controls="navbarSecond" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <div class="collapse navbar-collapse justify-content-center" id="navbarSecond">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="{% url 'home' %}" onclick="setActiveSecond(this)">
+                            <i class="bi bi-house-door"></i>Home
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'home' %}" onclick="setActiveSecond(this)">
+                            <i class="bi bi-info-circle"></i>About Us
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'home' %}" onclick="setActiveSecond(this)">
+                            <i class="bi bi-shield-lock"></i>Governing Body
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'home' %}" onclick="setActiveSecond(this)">
+                            <i class="bi bi-file-text"></i>Regulations
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'home' %}" onclick="setActiveSecond(this)">
+                            <i class="bi bi-pen"></i>Exam Cell
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'faculty_list' %}" onclick="setActiveSecond(this)">
+                            <i class="bi bi-building"></i>Faculty
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'home' %}" onclick="setActiveSecond(this)">
+                            <i class="bi bi-briefcase"></i>T&amp;P
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'home' %}" onclick="setActiveSecond(this)">
+                            <i class="bi bi-flask"></i>Labs
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'home' %}" onclick="setActiveSecond(this)">
+                            <i class="bi bi-award"></i>Auror Placements
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'home' %}" onclick="setActiveSecond(this)">
+                            <i class="bi bi-shield-slash"></i>Anti-Magic Misuse Cell
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Marquee Text -->
+    <div class="marquee-container">
+        <div class="marquee-text">
+            Welcome to Hogwarts University of Witchcraft and Wizardry — Explore Courses, Events, Magical Creatures, and More! ✨ Enroll Now for the Academic Year 2024-2025 ✨
+        </div>
+    </div>
+
+    <!-- Main Content Block -->
+    <main class="container my-4">
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer mt-auto py-3 bg-dark text-white">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 mb-3">
+                    <h5>About HU</h5>
+                    <p>Excellence in Magical Education since 990 AD.</p>
+                </div>
+                <div class="col-lg-4 mb-3">
+                    <h5>Quick Links</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="{% url 'home' %}" class="text-white">Admissions</a></li>
+                        <li><a href="{% url 'home' %}" class="text-white">Academics</a></li>
+                        <li><a href="{% url 'home' %}" class="text-white">Research</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-4 mb-3">
+                    <h5>Contact</h5>
+                    <p>Email: info@hogwarts.edu</p>
+                    <p>Phone: +44 1234 567890</p>
+                </div>
+            </div>
+            <div class="text-center mt-3">
+                &copy; {% now "Y" %} Hogwarts University. All Rights Reserved.
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    {% block extra_js %}{% endblock %}
+    
+    <script>
+        // Function to set active state for first navbar
+        function setActive(element) {
+            document.querySelectorAll('.navbar-first .nav-link').forEach(link => {
+                link.classList.remove('active');
+            });
+            element.classList.add('active');
+        }
+
+        // Function to set active state for second navbar
+        function setActiveSecond(element) {
+            document.querySelectorAll('.navbar-second .nav-link').forEach(link => {
+                link.classList.remove('active');
+            });
+            element.classList.add('active');
+        }
+
+        // Logo hover effect
+        document.querySelectorAll('.logo-item').forEach(logo => {
+            logo.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-8px) scale(1.1) rotateY(10deg)';
+            });
+            logo.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0) scale(1) rotateY(0)';
+            });
+        });
+
+        // Initialize tooltips if needed
+        document.addEventListener('DOMContentLoaded', function() {
+            document.body.style.opacity = '0';
+            document.body.style.transition = 'opacity 0.5s ease-in-out';
+            setTimeout(() => {
+                document.body.style.opacity = '1';
+            }, 100);
+        });
+    </script>
 </body>
 </html>

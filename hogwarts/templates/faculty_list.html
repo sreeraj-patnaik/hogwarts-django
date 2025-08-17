@@ -1,54 +1,158 @@
 {% extends "base.html" %}
 {% load static %}
-{% block title %}Faculty Directory{% endblock %}
+{% block title %}Faculty Directory | Hogwarts University{% endblock %}
 {% block breadcrumb_current %}Faculty{% endblock %}
 
-{% block content %}
-<div class="container-fluid py-4">
-    <h2 class="mb-4 text-primary-blue">Faculty Directory</h2>
-    <p class="mb-4">Browse our faculty members by role and department, ordered by experience.</p>
+{% block extra_css %}
+<style>
+    /* Faculty Directory Specific Styles */
+    .faculty-heading {
+        font-family: 'Cinzel', serif;
+        color: #740001;
+        text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+        border-bottom: 2px solid #d3a625;
+        padding-bottom: 8px;
+        margin-bottom: 30px;
+    }
 
-    {% regroup faculty by role as faculty_by_role %}
-    
-    {% for role_group in faculty_by_role %}
-        <div class="content-box mb-5">
-            <h3 class="text-bright-red mb-3">{{ role_group.grouper }}</h3>
-            
-            <div class="row g-4">
-                {% for f in role_group.list|dictsortreversed:"experience_years" %}
-                    <div class="col-12 col-sm-6 col-md-4 col-lg-3">
-                        <div class="faculty-profile p-3 h-100 d-flex flex-column justify-content-between">
-                            {% if f.photo %}
-                                <img src="{{ f.photo.url }}" alt="{{ f.name }}" class="mb-3 w-100">
-                            {% else %}
-                                <img src="{% static 'images/default_faculty.png' %}" alt="No Photo" class="mb-3 w-100">
-                            {% endif %}
-                            
-                            <div class="faculty-info">
-                                <h4 class="text-primary-blue">{{ f.name }}</h4>
-                                 {% if f.other_roles %}
-                                    <p class="mb-1"><strong></strong> 
-                                        <span style = "size:15px;">
-                                            
-                                           
-                                        <strong>{{ f.other_roles }}</strong>  </p>
-                                        </span>
+    .faculty-subheading {
+        color: #2c5354;
+        font-size: 1.1rem;
+        margin-bottom: 25px;
+    }
+
+    .faculty-card {
+        border: none;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        transition: all 0.3s ease;
+        height: 430px;
+        background: linear-gradient(to bottom, #f8f9fa 0%, #fff 100%);
+    }
+
+    .faculty-card:hover {
+        box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+        transform: translateY(-5px);
+    }
+
+    .image-container {
+        height: 220px;
+        overflow: hidden;
+        position: relative;
+        background-color: #f0f0f0;
+    }
+
+    .faculty-image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: top center;
+        transition: transform 0.5s ease;
+    }
+
+    .faculty-card:hover .faculty-image {
+        transform: scale(1.05);
+    }
+
+    .faculty-info {
+        padding: 15px;
+        height: calc(430px - 220px - 50px);
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
+    .faculty-name {
+        color: #0f2027;
+        font-weight: 600;
+        font-size: 1.2rem;
+        margin-bottom: 8px;
+    }
+
+    .faculty-role {
+        color: #740001;
+        font-weight: 500;
+        font-size: 0.9rem;
+        margin-bottom: 5px;
+    }
+
+    .faculty-detail {
+        color: #3a3a3a;
+        font-size: 0.85rem;
+        margin-bottom: 4px;
+    }
+
+    .view-profile-btn {
+        background: linear-gradient(135deg, #740001 0%, #a50000 100%);
+        color: white;
+        border: none;
+        padding: 8px 12px;
+        border-radius: 5px;
+        font-size: 0.9rem;
+        transition: all 0.3s;
+        width: 100%;
+        margin-top: 10px;
+    }
+
+    .view-profile-btn:hover {
+        background: linear-gradient(135deg, #a50000 0%, #740001 100%);
+        transform: translateY(-2px);
+        box-shadow: 0 3px 10px rgba(116, 0, 1, 0.3);
+    }
+
+    .no-faculty-message {
+        color: #6c757d;
+        font-style: italic;
+        padding: 20px;
+        text-align: center;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <h1 class="faculty-heading">Hogwarts Faculty Directory</h1>
+    <ul class="faculty-subheading">
+        <li>Prof Dr Minerva McGonagall has been Elevated to Central Dean of Studies</li>
+        <li>Prof Dr Filius Flitwick assuming office as the Head of Department of TTL</li>
+    </ul>
+
+    <div class="row g-4">
+        {% for f in faculty %}
+            <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+                <div class="faculty-card">
+                    <div class="image-container">
+                        {% if f.photo %}
+                            <img src="{{ f.photo.url }}" alt="Portrait of {{ f.name }}" class="faculty-image">
+                        {% else %}
+                            <img src="{% static 'images/default_faculty.png' %}" alt="Default faculty portrait" class="faculty-image">
+                        {% endif %}
+                    </div>
+                    <div class="faculty-info">
+                        <div>
+                            <h3 class="faculty-name">{{ f.name }}</h3>
+                            <p class="faculty-role">
+                                {% if f.roles %}
+                                    {{ f.roles|join:", " }}
+                                {% else %}
+                                    No Role
                                 {% endif %}
-                                <p class="mb-1">Department:   {{ f.department.name }}</p>
-                                <p class="mb-1">Experience:   {{ f.experience_years }} years</p>
-                               
-                            </div>
-                            
-                            <button class="btn btn-custom w-100 mt-3">View Profile</button>
+                            </p>
+                            {% if f.other_roles %}
+                                <p class="faculty-detail"><strong>Other Roles:</strong> {{ f.other_roles }}</p>
+                            {% endif %}
+                            <p class="faculty-detail"><strong>Experience:</strong> {{ f.experience_years }} years</p>
                         </div>
+                        <button class="view-profile-btn">View Profile</button>
                     </div>
-                {% empty %}
-                    <div class="col-12">
-                        <p>No faculty found under {{ role_group.grouper }}.</p>
-                    </div>
-                {% endfor %}
+                </div>
             </div>
-        </div>
-    {% endfor %}
+        {% empty %}
+            <div class="col-12">
+                <p class="no-faculty-message">No faculty found.</p>
+            </div>
+        {% endfor %}
+    </div>
 </div>
 {% endblock %}

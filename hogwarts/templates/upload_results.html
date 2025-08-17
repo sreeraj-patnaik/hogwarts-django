@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="departments-container">
+    <div style="width:100%; text-align:center; margin-bottom:30px;">
+        <h2>Upload Results</h2>
+        <p style="color:#333; font-size:1.1rem;">Upload an Excel sheet (.xlsx) containing student results for the selected semester.</p>
+    </div>
+
+    <div class="department-card" style="width:500px; background:#fff; color:#000; margin:auto;">
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            <!-- Semester Input -->
+            <div style="margin-bottom:20px;">
+                <label for="semester" style="font-weight:bold; font-size:1rem; color:#003185;">Semester</label><br>
+                <select name="semester" id="semester" required
+                        style="width:100%; border:1px solid #ccc; border-radius:6px; padding:8px;">
+                    <option value="sem1">Semester 1</option>
+                    <option value="sem2">Semester 2</option>
+                    <option value="sem3">Semester 3</option>
+                    <option value="sem4">Semester 4</option>
+                    <option value="sem5">Semester 5</option>
+                    <option value="sem6">Semester 6</option>
+                    <option value="sem7">Semester 7</option>
+                    <option value="sem8">Semester 8</option>
+                </select>
+            </div>
+
+            <!-- File Input -->
+            <div style="margin-bottom:20px;">
+                <label for="id_file" style="font-weight:bold; font-size:1rem; color:#003185;">Choose Excel File</label><br>
+                {{ form.file }}
+            </div>
+
+            <!-- Submit Button -->
+            <button type="submit" 
+                    style="background:linear-gradient(135deg,#3777ed,#003185); 
+                           color:#fff; 
+                           padding:12px 25px; 
+                           border:none; 
+                           border-radius:8px; 
+                           font-size:1rem; 
+                           cursor:pointer; 
+                           transition:all 0.3s ease;">
+                Upload
+            </button>
+        </form>
+
+        {% if messages %}
+            <div style="margin-top:20px;">
+                {% for message in messages %}
+                    <p style="color:{% if message.tags == 'error' %}red{% elif message.tags == 'success' %}green{% else %}orange{% endif %};">
+                        {{ message }}
+                    </p>
+                {% endfor %}
+            </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

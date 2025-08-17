@@ -1,26 +1,13 @@
-"""
-URL configuration for hogwarts project.
-
-The `urlpatterns` list routes URLs to views. For more information please see:
-    https://docs.djangoproject.com/en/5.2/topics/http/urls/
-Examples:
-Function views
-    1. Add an import:  from my_app import views
-    2. Add a URL to urlpatterns:  path('', views.home, name='home')
-Class-based views
-    1. Add an import:  from other_app.views import Home
-    2. Add a URL to urlpatterns:  path('', Home.as_view(), name='home')
-Including another URLconf
-    1. Import the include() function: from django.urls import include, path
-    2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
-"""
-
 from django.contrib import admin
-from django.urls import path, include
-from home import views
 from django.urls import path
+from home import views
 
 urlpatterns = [
- path("", views.home, name='home'),
-path('faculty/<str:dept_name>/', views.faculty_list, name='faculty_by_name')
+    path("", views.home, name='home'),
+    path("faculty/", views.faculty_list, name="faculty_list"),  # faculty list, no dept_name
+    path("admin/", admin.site.urls),
+    path("upload-results/", views.upload_results, name="upload_results"),
+        path("results/", views.results, name="results"),  # 👈 Add this
+
+
 ]

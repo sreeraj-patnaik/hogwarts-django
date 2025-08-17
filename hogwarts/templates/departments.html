@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% load static %}
+Styles
+
+
+{% block title %}Departments - Hogwarts University{% endblock %}
+
+{% block content %}
+<!-- Departments Page -->
+<div class="departments-container">
+    <h2>Departments</h2>
+    <div class="row">
+        {% for department in departments %}
+        <div class="col-md-4 col-sm-6">
+            <div class="department-card">
+                <h3>{{ department.name }}</h3>
+                <p>{{ department.description|default:"Explore our magical courses" }}</p>
+                <a href="{% url 'faculty_list' dept_name=department.name %}">
+                    View Faculty <i class="bi bi-arrow-right-circle"></i>
+                </a>
+            </div>
+        </div>
+        {% empty %}
+        <div class="col-12">
+            <p style="color: #fff; text-align:center;">No departments found.</p>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<!-- Optional Footer Spacer -->
+<br><br>
+{% endblock %}
